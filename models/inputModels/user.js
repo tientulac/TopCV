@@ -16,6 +16,7 @@ let UserSchema = new Schema({
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },
+    image: { type: String },
 });
 
 // Export the model
