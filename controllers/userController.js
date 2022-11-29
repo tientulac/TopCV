@@ -112,6 +112,7 @@ exports.Register = async (req, res) => {
             gender: req.body.gender,
             admin: req.body.admin,
             active: req.body.active,
+            image: req.body.image,
             //01: ADMIN, 02: NGUOI DUNG, 03: QUAN LY
             role_code: req.body.role_code,
             created_at: req.body.created_at,
