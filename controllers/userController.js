@@ -35,6 +35,25 @@ exports.Load_List = async (req, res) => {
             printStacktrace.errorNotFound(req, res);
         }
         else {
+            result.forEach(x => {
+                x = delete x.password;
+            });
+            response.ResponseBase(req, res, res.statusCode, "Thành công !", result);
+        }
+    }
+    catch (ex) {
+        printStacktrace.throwException(req, res, ex);
+    }
+};
+
+exports.Find_By_Id = async (req, res) => {
+    try {
+        const result = await userService.IfindById(req.params.id);
+        if (!result) {
+            printStacktrace.errorNotFound(req, res);
+        }
+        else {
+            delete result.password;
             response.ResponseBase(req, res, res.statusCode, "Thành công !", result);
         }
     }
@@ -62,6 +81,7 @@ exports.Login = async (req, res) => {
                     printStacktrace.errorInternalServer(req, res);
                 }
                 else {
+                    delete isUser.password;
                     let userInfo = {
                         UserInfo: isUser,
                         Role: await roleService.IfindOne({role_code: isUser.role_code})
@@ -120,6 +140,7 @@ exports.Register = async (req, res) => {
 
 exports.Update = async (req, res) => {
     try {
+        delete req.body.password
         const result = await userService.IupdateOne({ _id: req.params.id }, req.body);
         if (result) {
             response.ResponseBase(req, res, res.statusCode, "Cập nhật thành công !");
@@ -132,6 +153,42 @@ exports.Update = async (req, res) => {
         printStacktrace.throwException(req, res, ex);
     }
 };
+
+
+exports.ChangePassword = async (req, res) => {
+    try {
+        let requestUser = {
+            user_name: req.body.user_name,
+            password: req.body.password,
+            new_password: req.body.new_password
+        };
+        let reqUserName = { user_name: req.body.user_name };
+        let isUser = await userService.ILogin(reqUserName);
+        if (!isUser) {
+            printStacktrace.errorNotFound(req, res);
+        }
+        else {
+            let check = await checkUser(requestUser.password, isUser.password);
+            if (check) {
+                delete isUser.password;
+                const result = await userService.IupdateOne({ _id: req.params.id }, { password: await setPassword(requestUser.new_password) });
+                if (result) {
+                    response.ResponseBase(req, res, res.statusCode, "Đổi mật khẩu thành công !", isUser);
+                }
+                else {
+                    printStacktrace.errorBadRequest(req, res);
+                }
+            }
+            else {
+                printStacktrace.errorBadRequest(req, res);
+            }
+        }
+    }
+    catch (ex) {
+        printStacktrace.throwException(req, res, ex);
+    }
+};
+
 
 exports.Delete = async (req, res) => {
     try {

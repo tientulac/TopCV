@@ -14,6 +14,9 @@ module.exports = new class extends Repository {
     async RinsertOne(req) {
         return documentCV.create(req).then();
     }
+    async RfindMany(req) {
+        return documentCV.find(req).then();
+    }
     async RdeleteOne(id) {
         return documentCV.findByIdAndRemove(id).lean();
     }

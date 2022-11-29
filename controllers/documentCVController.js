@@ -60,12 +60,12 @@ exports.Update = async (req, res) => {
 
 exports.FindByUser = async (req, res) => {
     try {
-        const result = await documentCVService.IfindOne({ user_id: req.params.user_id });
-        if (result) {
+        const result = await documentCVService.IfindMany({ user_id: req.params.user_id });
+        if (result.length > 0) {
             response.ResponseBase(req, res, res.statusCode, "Thành công !", result);
         }
         else {
-            printStacktrace.errorBadRequest(req, res);
+            printStacktrace.errorNotFound(req, res);
         }
     }
     catch (ex) {

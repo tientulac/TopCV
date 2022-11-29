@@ -12,6 +12,7 @@ let UserSchema = new Schema({
     admin: { type: Boolean },
     active: { type: Boolean },
     role_code: { type: String },
+    phone: { type: String },
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },

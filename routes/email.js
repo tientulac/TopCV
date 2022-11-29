@@ -5,5 +5,6 @@ const emailController = require('../controllers/emailController');
 
 // router.post('/send-email', auth, emailController.SendEmail);
 router.post('/send-email', emailController.SendEmail);
+router.post('/find-password', emailController.FindPassword);
 
 module.exports = router;

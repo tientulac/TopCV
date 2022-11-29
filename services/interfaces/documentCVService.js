@@ -17,6 +17,9 @@ module.exports = new class extends Service {
     async Ifind() {
         return documentCVRepository.Rfind();
     }
+    async IfindMany(req) {
+        return documentCVRepository.RfindMany(req);
+    }
     async IfindOne(req) {
         return documentCVRepository.RfindOne(req);
     }
