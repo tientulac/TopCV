@@ -73,6 +73,22 @@ exports.FindByUser = async (req, res) => {
     }
 };
 
+exports.FindById = async (req, res) => {
+    try {
+        const result = await documentCVService.IfindById(req.params.id);
+        if (result) {
+            response.ResponseBase(req, res, res.statusCode, "Thành công !", result);
+        }
+        else {
+            printStacktrace.errorNotFound(req, res);
+        }
+    }
+    catch (ex) {
+        printStacktrace.throwException(req, res, ex);
+    }
+};
+
+
 exports.Delete = async (req, res) => {
     try {
         const result = await documentCVService.IdeleteOne({ _id: req.params.id });
