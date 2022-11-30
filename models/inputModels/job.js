@@ -17,6 +17,13 @@ let JobSchema = new Schema({
     deleted_at: { type: Date },
     candidate: { type: String },
     technology: { type: String },
+    //hình thức làm việc ("Full-time", "Part-time", "Remote", "Other")
+    work_form : { type: String },
+    work_place: { type: String },
+    gender : { type: Number },
+    experience: { type: String } ,
+    benefits: { type: String },
+    requirement: { type: String }
 });
 
 // Export the model

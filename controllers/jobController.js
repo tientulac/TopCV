@@ -36,6 +36,12 @@ exports.Insert = async (req, res) => {
             deleted_at: req.body.deleted_at,
             candidate: req.body.candidate,
             technology: req.body.technology,
+            work_form : req.body.work_form,
+            work_place: req.body.work_place,
+            gender : req.body.gender,
+            experience: req.body.experience ,
+            benefits: req.body.benefits,
+            requirement: req.body.requirement
         };
         const result = await jobService.IinsertOne(reqjob);
         if (result) {
