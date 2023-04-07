@@ -23,7 +23,8 @@ let JobSchema = new Schema({
     gender : { type: Number },
     experience: { type: String } ,
     benefits: { type: String },
-    requirement: { type: String }
+    requirement: { type: String },
+    company_code: { type: String },
 });
 
 // Export the model

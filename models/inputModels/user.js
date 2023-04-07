@@ -17,6 +17,8 @@ let UserSchema = new Schema({
     updated_at: { type: Date },
     deleted_at: { type: Date },
     image: { type: String },
+    isVIP: { type: Boolean },
+    company_code: { type: String },
 });
 
 // Export the model
