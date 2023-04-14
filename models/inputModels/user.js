@@ -17,7 +17,7 @@ let UserSchema = new Schema({
     updated_at: { type: Date },
     deleted_at: { type: Date },
     image: { type: String },
-    isVIP: { type: Boolean },
+    isVIP: { type: Number },
     company_code: { type: String },
 });
 
