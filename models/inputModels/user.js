@@ -17,6 +17,7 @@ let UserSchema = new Schema({
     updated_at: { type: Date },
     deleted_at: { type: Date },
     image: { type: String },
+    //1: 0 Cancle 1: Wating 3: Accept 
     isVIP: { type: Number },
     company_code: { type: String },
 });
