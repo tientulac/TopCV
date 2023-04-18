@@ -9,5 +9,6 @@ router.post('/', documentCVController.Insert);
 router.put('/:id', documentCVController.Update);
 router.delete('/:id', documentCVController.Delete);
 router.get('/findByUser/:user_id', documentCVController.FindByUser);
+router.get('/getByCompany/:company_code', documentCVController.Load_By_Company);
 
 module.exports = router;

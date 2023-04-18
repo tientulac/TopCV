@@ -6,6 +6,8 @@ let CompanySchema = new Schema({
     company_name: { type: String },
     description: { type: String },
     logo: { type: String },
+    status: { type: Number },
+    note: { type: String },
     created_at: { type: Date },
     updated_at: { type: Date },
     deleted_at: { type: Date },

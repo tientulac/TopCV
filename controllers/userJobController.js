@@ -43,10 +43,10 @@ exports.Load_By_Company = async (req, res) => {
         }
         else {
             var lstUserJob = [];
-            for (let x of result) {
-                var us = await userService.IfindById(x.user_id);
-                var cv = await documentCVService.IfindById(x.cv_id);
-                var jobb = await jobService.IfindById(x.job_id);
+            for (let x of result.filter(x => x.company_code == req.params.company_code)) {
+                var us = await userService.IfindById(x.user_id) ?? {};
+                var cv = await documentCVService.IfindById(x.cv_id) ?? {};
+                var jobb = await jobService.IfindById(x.job_id) ?? {};
                 delete us.password;
 
                 lstUserJob.push({
@@ -56,8 +56,7 @@ exports.Load_By_Company = async (req, res) => {
                     job: jobb,
                 });
             }
-            var rsUserJob = lstUserJob.filter(x => x.job.company_code == req.params.company_code);
-            response.ResponseBase(req, res, res.statusCode, "Thành công !", rsUserJob);
+            response.ResponseBase(req, res, res.statusCode, "Thành công !", lstUserJob);
         }
     }
     catch (ex) {

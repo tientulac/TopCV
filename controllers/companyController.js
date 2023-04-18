@@ -28,6 +28,8 @@ exports.Insert = async (req, res) => {
             created_at: req.body.created_at,
             updated_at: req.body.updated_at,
             deleted_at: req.body.deleted_at,
+            status: req.body.status,
+            note: req.body.note,
         };
         const result = await companyService.IinsertOne(reqcompany);
         if (result) {
