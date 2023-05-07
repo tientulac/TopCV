@@ -74,6 +74,7 @@ exports.Insert = async (req, res) => {
             created_at: req.body.created_at,
             updated_at: req.body.updated_at,
             deleted_at: req.body.deleted_at,
+            company_code: req.body.company_code,
         };
         const result = await userJobService.IinsertOne(reqUserJob);
         if (result) {
