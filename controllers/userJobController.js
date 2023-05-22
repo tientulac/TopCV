@@ -15,9 +15,9 @@ exports.Load_List = async (req, res) => {
         else {
             var lstUserJob = [];
             for (let x of result) {
-                var us = await userService.IfindById(x.user_id);
-                var cv = await documentCVService.IfindById(x.cv_id);
-                var jobb = await jobService.IfindById(x.job_id);
+                var us = await userService.IfindById(x.user_id) ?? {};
+                var cv = await documentCVService.IfindById(x.cv_id) ?? {};
+                var jobb = await jobService.IfindById(x.job_id) ?? {};
                 delete us.password;
 
                 lstUserJob.push({
@@ -44,6 +44,35 @@ exports.Load_By_Company = async (req, res) => {
         else {
             var lstUserJob = [];
             for (let x of result.filter(x => x.company_code == req.params.company_code)) {
+                var us = await userService.IfindById(x.user_id) ?? {};
+                var cv = await documentCVService.IfindById(x.cv_id) ?? {};
+                var jobb = await jobService.IfindById(x.job_id) ?? {};
+                delete us.password;
+
+                lstUserJob.push({
+                    userjob: x,
+                    user: us,
+                    documentCV: cv,
+                    job: jobb,
+                });
+            }
+            response.ResponseBase(req, res, res.statusCode, "Thành công !", lstUserJob);
+        }
+    }
+    catch (ex) {
+        printStacktrace.throwException(req, res, ex);
+    }
+};
+
+exports.Load_By_Job = async (req, res) => {
+    try {
+        const result = await userJobService.Ifind();
+        if (!result) {
+            printStacktrace.errorNotFound(req, res);
+        }
+        else {
+            var lstUserJob = [];
+            for (let x of result.filter(x => x.job_id == req.params.job_id)) {
                 var us = await userService.IfindById(x.user_id) ?? {};
                 var cv = await documentCVService.IfindById(x.cv_id) ?? {};
                 var jobb = await jobService.IfindById(x.job_id) ?? {};
